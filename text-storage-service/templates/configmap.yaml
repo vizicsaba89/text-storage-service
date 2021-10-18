@@ -1,0 +1,29 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ template "text-storage-service.fullname" . }}-configmap
+  labels:
+    app: {{ template "text-storage-service.name" . }}
+    chart: {{ template "text-storage-service.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+data:
+  application.yaml: |-
+    spring:
+      kafka:
+        properties:
+          spring.json.trusted.packages: "*"
+        bootstrap-servers: betvictor-kafka-0.betvictor-kafka-headless.default.svc.cluster.local:9092
+        consumer:
+          enable-auto-commit: true
+          group-id: betvictorconsumer
+          auto-offset-reset: latest
+          key-deserializer: org.springframework.kafka.support.serializer.ErrorHandlingDeserializer
+          value-deserializer: org.springframework.kafka.support.serializer.ErrorHandlingDeserializer
+          properties:
+            spring.json.use.type.headers: false
+            spring.json.value.default.type: hu.vizicsaba.betvictortask.textstorageservice.service.model.TextProcessResult
+            spring.deserializer.key.delegate.class: org.apache.kafka.common.serialization.StringDeserializer
+            spring.deserializer.value.delegate.class: org.springframework.kafka.support.serializer.JsonDeserializer
+    configuration:
+      {{- toYaml .Values.configuration | nindent 6 }}

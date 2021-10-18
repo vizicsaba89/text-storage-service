@@ -1,0 +1,17 @@
+apiVersion: skaffold/v2beta13
+kind: Config
+build:
+  artifacts:
+  - image: docker.io/vizicsaba89/text-storage-service
+    jib: {}
+  tagPolicy:
+    sha256: {}
+deploy:
+  helm:
+    releases:
+    - name: text-storage-service
+      chartPath: text-storage-service
+      setValues:
+        image.pullPolicy: IfNotPresent
+      imageStrategy:
+          helm: {}

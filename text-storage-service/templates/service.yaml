@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "text-storage-service.fullname" . }}
+  labels:
+    {{- include "text-storage-service.labels" . | nindent 4 }}
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+    - port: {{ .Values.service.port }}
+      targetPort: 8080
+      protocol: TCP
+      name: http
+    - port: {{ .Values.service.debugport }}
+      targetPort: 8001
+      protocol: TCP
+      name: debug
+  selector:
+    {{- include "text-storage-service.selectorLabels" . | nindent 4 }}
