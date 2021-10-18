@@ -27,21 +27,26 @@ public class KafkaConsumerService implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        consumeTextProcessData();
+        consumeTextProcessData().subscribe();
     }
 
-    private void consumeTextProcessData() {
-        Flux<ConsumerRecord<String, TextProcessResult>> consumerRecordFlux = reactiveKafkaConsumerTemplate.receiveAutoAck();
-
-        consumerRecordFlux
-                .delayElements(Duration.ofSeconds(5L))
-                .subscribe(record -> {
-                    log.info("#########", record.value());
-                });
+    private Flux<TextProcessData> consumeTextProcessData() {
+        return reactiveKafkaConsumerTemplate.receiveAutoAck()
+                .map(ConsumerRecord::value)
+                .map(this::getTextProcessData)
+                .flatMap(textStorageRepository::save)
+                .doOnNext(fakeConsumerDTO -> log.info("successfully consumed {}={}", TextProcessResult.class.getSimpleName(), fakeConsumerDTO))
+                .doOnError(throwable -> log.error("something bad happened while consuming : {}", throwable.getMessage()));
     }
 
-    private TextProcessData getTextProcessData() {
-        return new TextProcessData(null, "alma", 10, 120.1, 1000L);
+    private TextProcessData getTextProcessData(TextProcessResult textProcessResult) {
+        return new TextProcessData(
+                null,
+                textProcessResult.getMostFrequentWord(),
+                textProcessResult.getAverageParagraphSize(),
+                textProcessResult.getAverageParagraphProcessingTime(),
+                textProcessResult.getTotalProcessingTime());
     }
+
 }
 

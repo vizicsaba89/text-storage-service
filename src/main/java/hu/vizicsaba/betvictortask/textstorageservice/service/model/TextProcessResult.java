@@ -9,16 +9,12 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class TextProcessResult {
 
-    @JsonProperty("most_frequent_word")
     private String mostFrequentWord;
 
-    @JsonProperty("avg_paragraph_size")
     private Integer averageParagraphSize;
 
-    @JsonProperty("avg_paragraph_processing_time")
     private Double averageParagraphProcessingTime;
 
-    @JsonProperty("total_processing_time")
     private Long totalProcessingTime;
 
 }
