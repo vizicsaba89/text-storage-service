@@ -1,4 +1,4 @@
-package hu.vizicsaba.betvictortask.textstorageservice.service.model;
+package hu.vizicsaba.betvictortask.textstorageservice.service.model.kafka;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -11,7 +11,7 @@ public class TextProcessResult {
 
     private String mostFrequentWord;
 
-    private Integer averageParagraphSize;
+    private Double averageParagraphSize;
 
     private Double averageParagraphProcessingTime;
 

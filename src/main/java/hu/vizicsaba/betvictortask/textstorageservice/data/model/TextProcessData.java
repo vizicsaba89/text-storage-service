@@ -15,7 +15,7 @@ public class TextProcessData {
 
     private String mostFrequentWord;
 
-    private Integer averageParagraphSize;
+    private Double averageParagraphSize;
 
     private Double averageParagraphProcessingTime;
 
