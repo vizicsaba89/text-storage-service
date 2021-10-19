@@ -7,6 +7,6 @@ import reactor.core.publisher.Flux;
 
 public interface TextStorageRepository extends ReactiveCrudRepository<TextProcessData, Long> {
 
-    @Query("SELECT * FROM text_process_data LIMIT :numberOfResults")
+    @Query("SELECT * FROM text_process_data ORDER BY id DESC LIMIT :numberOfResults")
     Flux<TextProcessData> getTextProcessData(Integer numberOfResults);
 }

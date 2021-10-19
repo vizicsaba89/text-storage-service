@@ -1,5 +1,7 @@
 spring:
   kafka:
+    listeners:
+      concurrency: 2
     properties:
       spring.json.trusted.packages: "*"
     bootstrap-servers: ${spring.embedded.kafka.brokers}

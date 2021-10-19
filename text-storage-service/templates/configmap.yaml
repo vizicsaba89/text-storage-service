@@ -11,6 +11,8 @@ data:
   application.yaml: |-
     spring:
       kafka:
+        listeners:
+          concurrency: 2
         properties:
           spring.json.trusted.packages: "*"
         bootstrap-servers: betvictor-kafka-0.betvictor-kafka-headless.default.svc.cluster.local:9092
