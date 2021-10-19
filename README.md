@@ -5,7 +5,7 @@ Additional informations:
 
 For kafka communication i've used the bitnami/kafka helm chart (helm install betvictor-kafka bitnami/kafka) <br />
 For postgres communication i've used the bitnami/postgresql helm chart through requirements.yaml <br />
-The service are also compatible with helm <br />
+The service is also compatible with helm <br />
 You can start the service with skaffold if it's more convenient (skaffold dev --port-forward) <br />
 
 Version informations:
