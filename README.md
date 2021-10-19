@@ -15,4 +15,5 @@ k8s: v1.19.3
 
 Install / deployment example:
 helm install betvictor-kafka bitnami/kafka
+
 from text-storage-service root -> skaffold dev --port-forward -> "http://localhost:{exposed-port}/betvictor/history" endpoint available
